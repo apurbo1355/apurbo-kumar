@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const profile = {
   name: "Apurbo Kumar",
@@ -203,12 +204,10 @@ const initiatives = [
 ];
 
 const committeeRoles = [
-  { title: "President", org: "BUET Rover Scout Group" },
-  { title: "President", org: "BUET Brain Teaser Club / BUET Math Club" },
-  { title: "Publication Secretary", org: "SBSC, BUET" },
   { title: "Academic Coordinator & Academic Sub-Committee Member", org: "Bangladesh Mathematical Olympiad" },
-  { title: "Assistant Secretary — Sports", org: "BJS" },
-  { title: "Event Management Secretary", org: "Menace to Sobriety" },
+  { title: "President and Senior Rover Mate", org: "BUET Rover Scout Group" },
+  { title: "President", org: "BUET Brain Teaser Club (Math Club)" },
+  { title: "Publication Secretary", org: "SBSC, BUET" },
 ];
 
 const courses = [
@@ -252,6 +251,30 @@ const navItems = ["Home", "About", "Education", "Research", "International", "Le
 
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setContactStatus("error");
+      console.error("Missing EmailJS environment variables. Check .env.local.");
+      return;
+    }
+
+    setContactStatus("sending");
+    try {
+      await emailjs.sendForm(serviceId, templateId, event.currentTarget, { publicKey });
+      setContactStatus("sent");
+      event.currentTarget.reset();
+    } catch (err) {
+      console.error("EmailJS send failed:", err);
+      setContactStatus("error");
+    }
+  };
 
   return (
     <>
@@ -633,26 +656,34 @@ export default function HomePage() {
               <p className="flex items-center gap-3"><Building2 size={18} /> <span>Bangladesh</span></p>
             </div>
           </div>
-          <form className="glass relative overflow-hidden rounded-[2rem] p-8">
+          <form onSubmit={handleContactSubmit} className="glass relative overflow-hidden rounded-[2rem] p-8">
             <div className="grid gap-5 md:grid-cols-2">
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Name</span>
-                <input className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Your name" />
+                <input name="from_name" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Your name" />
               </label>
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Email</span>
-                <input className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="email" placeholder="you@example.com" />
+                <input name="reply_to" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="email" placeholder="you@example.com" />
               </label>
             </div>
             <label className="mt-5 block">
               <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Subject</span>
-              <input className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Research collaboration" />
+              <input name="subject" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Research collaboration" />
             </label>
             <label className="mt-5 block">
               <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Message</span>
-              <textarea className="min-h-32 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" placeholder="Write your message here..." />
+              <textarea name="message" required className="min-h-32 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" placeholder="Write your message here..." />
             </label>
-            <button type="submit" className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400">Send message <ArrowRight size={16} /></button>
+            <button type="submit" disabled={contactStatus === "sending"} className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400">
+              {contactStatus === "sending" ? "Sending..." : "Send message"} <ArrowRight size={16} />
+            </button>
+            {contactStatus === "sent" && (
+              <p className="mt-4 text-sm font-medium text-emerald-600 dark:text-emerald-400">Message sent — thank you! I&apos;ll get back to you soon.</p>
+            )}
+            {contactStatus === "error" && (
+              <p className="mt-4 text-sm font-medium text-red-600 dark:text-red-400">Something went wrong sending your message. Please email me directly instead.</p>
+            )}
           </form>
         </div>
       </section>
