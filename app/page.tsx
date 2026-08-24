@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Atom,
   BarChart3,
+  Binary,
   BrainCircuit,
   Building2,
   Briefcase,
@@ -27,6 +29,7 @@ import {
   PenLine,
   Search,
   ShieldCheck,
+  Sigma,
   Sparkles,
   Telescope,
   Trophy,
@@ -187,7 +190,7 @@ const internationalActivities = [
 const initiatives = [
   {
     title: "ML & AI Research Lab, Bangladesh",
-    role: "Founder / Co-developer",
+    role: "Founder",
     description: "Research and training initiative focused on Machine Learning and Artificial Intelligence.",
     achievements: ["AI research training", "Student-led labs", "Collaborative workshops"],
     icon: BrainCircuit,
@@ -249,6 +252,8 @@ const articles = [
 
 const navItems = ["Home", "About", "Education", "Research", "International", "Leadership", "Courses", "Skills", "Media", "Press", "Articles", "Contact"];
 
+const orbitSymbols = [BrainCircuit, Sigma, Cpu, Binary, Network, Atom];
+
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -284,13 +289,13 @@ export default function HomePage() {
           <Link href="#home" className="text-xl font-semibold tracking-tight text-white">Apurbo Kumar</Link>
           <nav className="hidden items-center gap-4 xl:gap-6 lg:flex">
             {navItems.map((item) => (
-              <a key={item} href={item === "Home" ? "#home" : `#${item.toLowerCase()}`} className="text-sm font-semibold text-white/90 transition hover:text-white">
+              <a key={item} href={item === "Home" ? "#home" : `#${item.toLowerCase()}`} className="text-sm font-semibold text-white/90 transition-all duration-200 hover:text-white active:scale-95">
                 {item}
               </a>
             ))}
           </nav>
           <div className="flex items-center gap-3">
-            <button type="button" aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen((open) => !open)} className="rounded-xl border border-white/30 bg-white/15 p-2 text-white transition hover:bg-white/25 lg:hidden">
+            <button type="button" aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={isMenuOpen} onClick={() => setIsMenuOpen((open) => !open)} className="rounded-xl border border-white/30 bg-white/15 p-2 text-white transition-all duration-200 hover:bg-white/25 active:scale-90 lg:hidden">
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -298,7 +303,7 @@ export default function HomePage() {
         <nav className={`${isMenuOpen ? "grid" : "hidden"} border-t border-white/20 bg-slate-950/20 px-4 py-3 lg:hidden`}>
           <div className="section-shell grid gap-1 sm:grid-cols-2">
             {navItems.map((item) => (
-              <a key={item} href={item === "Home" ? "#home" : `#${item.toLowerCase()}`} onClick={() => setIsMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/90 transition hover:bg-white/15 hover:text-white">
+              <a key={item} href={item === "Home" ? "#home" : `#${item.toLowerCase()}`} onClick={() => setIsMenuOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-white/90 transition-all duration-200 hover:bg-white/15 hover:text-white active:scale-95">
                 {item}
               </a>
             ))}
@@ -322,26 +327,27 @@ export default function HomePage() {
           </div>
           <p className="animate-text-reveal animate-text-delay-3 mt-6 max-w-xl text-lg leading-8 text-slate-700 dark:text-slate-300">{profile.summary}</p>
           <div className="animate-text-reveal animate-text-delay-4 mt-8 flex flex-wrap gap-3">
-            <a href="#research" className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-950/25 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30">View Research <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></a>
-            <a href="#about" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-5 py-3 text-sm font-semibold text-slate-200 shadow-lg shadow-slate-950/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-slate-900 hover:text-white">Explore Portfolio <Telescope size={16} /></a>
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-5 py-3 text-sm font-semibold text-slate-200 shadow-lg shadow-slate-950/10 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-slate-900 hover:text-white">Contact Me <Mail size={16} /></a>
+            <a href="#research" className="group inline-flex items-center gap-2 rounded-full bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-950/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-950/30 active:scale-95 active:translate-y-0">View Research <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" /></a>
+            <a href="#about" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-5 py-3 text-sm font-semibold text-slate-200 shadow-lg shadow-slate-950/10 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-slate-900 hover:text-white active:scale-95 active:translate-y-0">Explore Portfolio <Telescope size={16} /></a>
+            <a href="#contact" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/70 px-5 py-3 text-sm font-semibold text-slate-200 shadow-lg shadow-slate-950/10 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-slate-900 hover:text-white active:scale-95 active:translate-y-0">Contact Me <Mail size={16} /></a>
           </div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="hero-photo relative">
-          <div className="glass relative overflow-hidden rounded-[2rem] p-4">
+          <div className="glass relative mx-auto h-72 w-72 overflow-hidden rounded-full p-4 sm:h-96 sm:w-96 lg:h-110 lg:w-110">
             <div className="absolute inset-0 bg-mesh opacity-80" />
-            <div className="relative rounded-[1.5rem] border border-slate-200/70 bg-white/70 p-4 dark:border-slate-700/80 dark:bg-slate-900/70">
-              <img src={profile.image} alt={profile.name} className="animate-photo h-[510px] w-full rounded-[1.25rem] object-cover" />
+            <div className="relative h-full w-full rounded-full border border-slate-200/70 bg-white/70 p-4 dark:border-slate-700/80 dark:bg-slate-900/70">
+              <img src={profile.image} alt={profile.name} className="animate-photo h-full w-full rounded-full object-cover" />
             </div>
           </div>
-          <div className="glass absolute -left-4 top-12 overflow-hidden rounded-2xl p-4">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">International</div>
-            <div className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">{internationalActivities.length}</div>
-          </div>
-          <div className="glass absolute -right-3 bottom-12 overflow-hidden rounded-2xl p-4">
-            <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Research</div>
-            <div className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">{researchItems.length}</div>
+          <div className="orbit-ring pointer-events-none absolute inset-0">
+            {orbitSymbols.map((Icon, index) => (
+              <div key={index} className="orbit-item" style={{ "--orbit-angle": `${(360 / orbitSymbols.length) * index}deg` } as React.CSSProperties}>
+                <div className="orbit-icon">
+                  <Icon size={18} />
+                </div>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>
@@ -683,7 +689,7 @@ export default function HomePage() {
               <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Message</span>
               <textarea name="message" required className="min-h-32 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400" placeholder="Write your message here..." />
             </label>
-            <button type="submit" disabled={contactStatus === "sending"} className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400">
+            <button type="submit" disabled={contactStatus === "sending"} className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-all duration-200 hover:bg-slate-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400">
               {contactStatus === "sending" ? "Sending..." : "Send message"} <ArrowRight size={16} />
             </button>
             {contactStatus === "sent" && (

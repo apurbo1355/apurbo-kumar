@@ -15,6 +15,19 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a, button, [role="button"] {
+  cursor: pointer;
+}
+
+@media (hover: none), (max-width: 768px) {
+  body,
+  html.dark body {
+    background-attachment: scroll;
+  }
 }
 
 html.dark {
@@ -157,6 +170,53 @@ html.dark .wc-card::before {
 @keyframes photo-float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-8px) rotate(0.35deg); }
+}
+
+.orbit-ring {
+  --orbit-radius: 235px;
+  animation: orbit-spin 22s linear infinite;
+}
+
+.orbit-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: rotate(var(--orbit-angle)) translateX(var(--orbit-radius));
+}
+
+.orbit-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin: -21px;
+  border-radius: 9999px;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  background: rgba(8, 12, 28, 0.78);
+  color: #7dd3fc;
+  box-shadow: 0 10px 24px rgba(8, 9, 18, 0.4);
+  animation: orbit-counter-spin 22s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .orbit-ring {
+    --orbit-radius: 165px;
+  }
+  .orbit-icon {
+    width: 34px;
+    height: 34px;
+    margin: -17px;
+  }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
 }
 
 .loading-screen {
