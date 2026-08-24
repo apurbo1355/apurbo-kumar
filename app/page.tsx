@@ -423,15 +423,23 @@ export default function HomePage() {
           <SectionHeading title="Research" icon={<Search size={18} />} />
           <div className="mb-8 flex flex-wrap gap-3">
             {[
-              { label: "Published", href: "#paper-r1" },
-              { label: "Accepted", href: "#paper-r2" },
-              { label: "Submitted", href: "#paper-r3" },
+              { label: "Published", href: "#paper-r1", classes: "border-emerald-300/25 bg-emerald-400/10 text-emerald-200 hover:border-emerald-300/60 hover:bg-emerald-400/20 hover:shadow-emerald-500/20" },
+              { label: "Accepted", href: "#paper-r2", classes: "border-sky-300/25 bg-sky-400/10 text-sky-200 hover:border-sky-300/60 hover:bg-sky-400/20 hover:shadow-sky-500/20" },
+              { label: "Submitted", href: "#paper-r3", classes: "border-rose-300/25 bg-rose-400/10 text-rose-200 hover:border-rose-300/60 hover:bg-rose-400/20 hover:shadow-rose-500/20" },
             ].map((item) => (
-              <a key={item.label} href={item.href} className="rounded-full border border-slate-200 bg-white/60 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-sky-400 hover:text-sky-600 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200">
+              <motion.a
+                key={item.label}
+                href={item.href}
+                whileHover={{ y: -3 }}
+                whileTap={{ y: 0 }}
+                className={`rounded-full border ${item.classes} px-5 py-2.5 text-sm font-semibold backdrop-blur-sm transition-colors duration-300 hover:shadow-lg`}
+              >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
-            <span className="rounded-full border border-slate-200 bg-white/60 px-4 py-2 text-sm font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200">Ongoing</span>
+            <motion.span whileHover={{ y: -3 }} className="rounded-full border border-violet-300/25 bg-violet-400/10 px-5 py-2.5 text-sm font-semibold text-violet-200 backdrop-blur-sm transition-colors duration-300 hover:border-violet-300/60 hover:bg-violet-400/20 hover:shadow-lg hover:shadow-violet-500/20">
+              Ongoing
+            </motion.span>
           </div>
           <div className="grid gap-6 lg:grid-cols-2">
             {researchItems.map((item, index) => (
@@ -660,20 +668,20 @@ export default function HomePage() {
             <div className="grid gap-5 md:grid-cols-2">
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Name</span>
-                <input name="from_name" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Your name" />
+                <input name="from_name" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400" type="text" placeholder="Your name" />
               </label>
               <label className="block">
                 <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Email</span>
-                <input name="reply_to" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="email" placeholder="you@example.com" />
+                <input name="reply_to" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400" type="email" placeholder="you@example.com" />
               </label>
             </div>
             <label className="mt-5 block">
               <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Subject</span>
-              <input name="subject" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" type="text" placeholder="Research collaboration" />
+              <input name="subject" required className="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400" type="text" placeholder="Research collaboration" />
             </label>
             <label className="mt-5 block">
               <span className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Message</span>
-              <textarea name="message" required className="min-h-32 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 outline-none transition focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70" placeholder="Write your message here..." />
+              <textarea name="message" required className="min-h-32 w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-sky-400 dark:border-slate-700 dark:bg-slate-900/70 dark:text-white dark:placeholder:text-slate-400" placeholder="Write your message here..." />
             </label>
             <button type="submit" disabled={contactStatus === "sending"} className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-sky-500 dark:text-slate-950 dark:hover:bg-sky-400">
               {contactStatus === "sending" ? "Sending..." : "Send message"} <ArrowRight size={16} />
