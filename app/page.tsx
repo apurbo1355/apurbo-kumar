@@ -8,7 +8,6 @@ import {
   Binary,
   BrainCircuit,
   Building2,
-  Briefcase,
   Check,
   ChevronRight,
   Code2,
@@ -16,14 +15,12 @@ import {
   Eye,
   ExternalLink,
   FlaskConical,
-  GitBranch,
   GraduationCap,
   Leaf,
   Mail,
   Medal,
   MapPin,
   Menu,
-  MessageCircle,
   Network,
   Newspaper,
   PenLine,
@@ -42,6 +39,38 @@ import Link from "next/link";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
+function BrandIcon({ path, size = 18, color }: { path: string; size?: number; strokeWidth?: number; color: string }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill={color} aria-hidden="true">
+      <path d={path} />
+    </svg>
+  );
+}
+
+const FacebookIcon = (props: { size?: number; strokeWidth?: number }) => (
+  <BrandIcon
+    {...props}
+    color="#1877F2"
+    path="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+  />
+);
+
+const LinkedinIcon = (props: { size?: number; strokeWidth?: number }) => (
+  <BrandIcon
+    {...props}
+    color="#0A66C2"
+    path="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+  />
+);
+
+const GmailIcon = (props: { size?: number; strokeWidth?: number }) => (
+  <BrandIcon
+    {...props}
+    color="#EA4335"
+    path="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.588.328-1.02.822-1.298l.001-.001a1.68 1.68 0 0 1 1.6.14L12 9.977l9.577-5.68a1.634 1.634 0 0 1 1.601-.14c.494.278.822.71.822 1.3z"
+  />
+);
+
 const profile = {
   name: "Apurbo Kumar",
   title: "Civil Engineering | Data Science & Artificial Intelligence | AI Research | Mathematics",
@@ -57,10 +86,9 @@ const profile = {
   location: "Bangladesh",
   image: "/apurbo-kumar.jpg",
   socials: [
-    { label: "LinkedIn", href: "https://linkedin.com/in/apurbo-kumar17", icon: Briefcase },
-    { label: "Facebook", href: "https://facebook.com/apurbo.kumar.10844", icon: MessageCircle },
-    { label: "Email", href: "mailto:apurbokumar1355@gmail.com", icon: Mail },
-    { label: "GitHub", href: "https://github.com", icon: GitBranch },
+    { label: "LinkedIn", href: "https://linkedin.com/in/apurbo-kumar17", icon: LinkedinIcon },
+    { label: "Facebook", href: "https://facebook.com/apurbo.kumar.10844", icon: FacebookIcon },
+    { label: "Gmail", href: "mailto:apurbokumar1355@gmail.com", icon: GmailIcon },
   ],
 };
 
@@ -721,7 +749,7 @@ export default function HomePage() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noreferrer" : undefined}
                     aria-label={item.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-linear-to-br hover:from-cyan-500 hover:to-violet-600 hover:text-white hover:shadow-lg hover:shadow-cyan-950/30"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 transition duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/15 hover:shadow-lg hover:shadow-cyan-950/30"
                   >
                     <item.icon size={18} strokeWidth={1.8} />
                   </a>
