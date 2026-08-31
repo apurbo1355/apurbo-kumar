@@ -35,6 +35,7 @@ import {
   Waves,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
@@ -96,18 +97,21 @@ const education = [
   {
     id: "buet",
     mark: "BUET",
+    logo: "/logos/buet.png",
     university: "Bangladesh University of Engineering and Technology (BUET)",
     degree: "B.Sc. in Civil Engineering",
   },
   {
     id: "iitg",
     mark: "IIT",
+    logo: "/logos/iitg.png",
     university: "Indian Institute of Technology Guwahati",
     degree: "B.Sc. in Data Science & Artificial Intelligence",
   },
   {
     id: "uopeople",
     mark: "UoPeople",
+    logo: "/logos/uopeople.png",
     university: "University of the People",
     degree: "B.Sc. in Computer Science",
   },
@@ -201,9 +205,9 @@ const researchInterests = [
 ];
 
 const internationalActivities = [
-  { title: "International Mathematical Olympiad (IMO) 2026", role: "Deputy Leader", location: "Shanghai, China", category: "Olympiad", icon: Trophy, color: "from-amber-400 to-orange-500" },
-  { title: "International Mathematics Summer Camp (IMSC) 2026", role: "Trainer", location: "Beijing, China", category: "Training", icon: GraduationCap, color: "from-cyan-400 to-blue-500" },
-  { title: "4th KhIMIO 2026", role: "Country Coordinator", location: "Uzbekistan", category: "Leadership", icon: UsersRound, color: "from-violet-400 to-fuchsia-500" },
+  { title: "International Mathematical Olympiad (IMO) 2026", role: "Deputy Leader", location: "Shanghai, China", category: "Olympiad", icon: Trophy, color: "from-amber-400 to-orange-500", image: "/international/imo01.jpg" },
+  { title: "International Mathematics Summer Camp (IMSC) 2026", role: "Trainer", location: "Beijing, China", category: "Training", icon: GraduationCap, color: "from-cyan-400 to-blue-500", image: "/international/imsc01-banner.jpg" },
+  { title: "4th KhIMIO 2026", role: "Country Coordinator", location: "Uzbekistan", category: "Leadership", icon: UsersRound, color: "from-violet-400 to-fuchsia-500", image: "/international/khimio.jpg" },
   { title: "Recognition associated with Harvard University", role: "AI-Integrated Leader", location: "USA", category: "Research", icon: FlaskConical, color: "from-rose-400 to-pink-500" },
   { title: "Aspire Leaders Program", role: "Aspire Leader", location: "Remote", category: "Leadership", icon: UsersRound, color: "from-violet-400 to-indigo-500" },
   { title: "South Asian Division Champion 2026", role: "Champion", location: "South Asia", category: "Awards", icon: Medal, color: "from-amber-400 to-yellow-500" },
@@ -265,6 +269,7 @@ const mediaItems = [
 ];
 
 const pressFeatures = [
+  { id: "p8", outlet: "The Business Standard", title: "How Bangladesh went from 3 points to 6 medals at International Math Olympiad", date: "2026", link: "https://www.tbsnews.net/features/panorama/how-bangladesh-went-3-points-6-medals-international-math-olympiad-1526201" },
   { id: "p1", outlet: "Prothom Alo", title: "সাংহাইয়ে গণিতের বিশ্বমঞ্চে লাল-সবুজ", date: "Jul 2026", link: "https://www.prothomalo.com/bangladesh/06ufb67klf" },
   { id: "p2", outlet: "Prothom Alo", title: "'আরেক বিশ্বকাপে' অংশ নিতে বাংলাদেশ দল এখন চীনে", date: "Jun 2026", link: "https://www.prothomalo.com/lifestyle/w2j6qf2956" },
   { id: "p3", outlet: "Kalbela", title: "বুয়েটে শুরু হয়েছে ঢাকা জেলা রোভারের দিনব্যাপী ডে ক্যাম্প ২০২৬", date: "2026", link: "https://www.kalbela.com/corporate/314611" },
@@ -420,8 +425,8 @@ export default function HomePage() {
             <motion.article key={item.id} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }} whileHover={{ y: -6 }} className="glass group relative overflow-hidden rounded-[2rem] border-white/10 bg-slate-950/70 p-8 shadow-xl shadow-slate-950/10">
               <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl transition duration-500 group-hover:bg-violet-400/20" />
               <div className="flex items-center gap-4">
-                <div className="relative flex min-h-14 min-w-14 items-center justify-center rounded-2xl bg-linear-to-br from-cyan-400/25 to-violet-500/30 px-2 text-center text-sm font-black tracking-tight text-cyan-300 ring-1 ring-white/10">
-                  {item.mark}
+                <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white p-2 ring-1 ring-white/10">
+                  <Image src={item.logo} alt={`${item.mark} logo`} width={48} height={48} className="h-full w-full object-contain" />
                 </div>
                 <div className="relative min-w-0">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300/80">University</p>
@@ -516,17 +521,25 @@ export default function HomePage() {
         </div>
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {internationalActivities.map((item, idx) => (
-            <motion.div id={internationalActivities.findIndex((activity) => activity.category === item.category) === idx ? `international-${item.category.toLowerCase()}` : undefined} key={`${item.title}-${idx}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.04 }} whileHover={{ y: -5 }} className="scroll-mt-28 glass group relative overflow-hidden rounded-2xl border-white/10 bg-slate-950/75 p-5 shadow-lg shadow-slate-950/10 transition duration-300 hover:border-cyan-300/25 hover:shadow-cyan-950/20">
-              <div className={`absolute -right-6 -top-8 h-24 w-24 rounded-full bg-linear-to-br ${item.color} opacity-15 blur-2xl transition duration-500 group-hover:opacity-30`} />
-              <div className="relative mb-5 flex items-start justify-between gap-3">
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br ${item.color} text-white shadow-lg shadow-slate-950/20 transition duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                  <item.icon size={21} strokeWidth={1.8} />
+            <motion.div id={internationalActivities.findIndex((activity) => activity.category === item.category) === idx ? `international-${item.category.toLowerCase()}` : undefined} key={`${item.title}-${idx}`} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.04 }} whileHover={{ y: -5 }} className="scroll-mt-28 glass group relative overflow-hidden rounded-2xl border-white/10 bg-slate-950/75 shadow-lg shadow-slate-950/10 transition duration-300 hover:border-cyan-300/25 hover:shadow-cyan-950/20">
+              {item.image && (
+                <div className="relative h-40 overflow-hidden">
+                  <img src={item.image} alt={item.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/10 to-transparent" />
                 </div>
-                <span className="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{item.category}</span>
+              )}
+              <div className="relative p-5">
+                <div className={`absolute -right-6 -top-8 h-24 w-24 rounded-full bg-linear-to-br ${item.color} opacity-15 blur-2xl transition duration-500 group-hover:opacity-30`} />
+                <div className="relative mb-5 flex items-start justify-between gap-3">
+                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br ${item.color} text-white shadow-lg shadow-slate-950/20 transition duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                    <item.icon size={21} strokeWidth={1.8} />
+                  </div>
+                  <span className="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-200">{item.category}</span>
+                </div>
+                <div className="relative text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.role}</div>
+                <h3 className="relative mt-3 text-lg font-bold leading-snug text-white">{item.title}</h3>
+                <p className="relative mt-3 flex items-center gap-2 text-sm text-slate-300"><MapPin size={14} className="text-cyan-300" />{item.location}</p>
               </div>
-              <div className="relative text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{item.role}</div>
-              <h3 className="relative mt-3 text-lg font-bold leading-snug text-white">{item.title}</h3>
-              <p className="relative mt-3 flex items-center gap-2 text-sm text-slate-300"><MapPin size={14} className="text-cyan-300" />{item.location}</p>
             </motion.div>
           ))}
         </div>
